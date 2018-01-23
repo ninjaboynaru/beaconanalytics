@@ -172,7 +172,12 @@ sessionSchema.statics.getAnalyticsOverview = function(dateRange, callback) {
 
 	function onAggregateFinish(error, result){
 		if(Array.isArray(result) ) {
-			result = result[0];
+			if(result[0] ) {
+				result = result[0];
+			}
+			else {
+				result = {total:0, avgSessionDuration:0, avgBreakDuration:0};
+			}
 		}
 		callback(error, result);
 	}
