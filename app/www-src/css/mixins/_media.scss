@@ -1,0 +1,31 @@
+
+// desktop first design - additive
+
+
+$browser-context: 16px;
+// Convert piels to em units, based on a base font size called $context
+@function px-em($pixels, $context: $browser-context) {
+	@return #{$pixels/$context}em;
+}
+
+
+$width-desktop: px-em(1024px);
+$width-tablet: px-em(762px);
+$width-phone: px-em(540px);
+$width-phone-small: px-em(280px);
+
+@mixin media-tablet {
+	@media (max-width: $width-tablet) {
+		@content;
+	}
+}
+@mixin media-phone {
+	@media (max-width: $width-phone) {
+		@content;
+	}
+}
+@mixin media-phone-small {
+	@media (max-width: $width-phone-small) {
+		@content;
+	}
+}

@@ -1,0 +1,4 @@
+{
+	"maxConnections": 100,
+	"maxConnectionTime": 600000
+}

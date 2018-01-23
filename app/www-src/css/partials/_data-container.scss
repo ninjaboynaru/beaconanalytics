@@ -1,0 +1,19 @@
+
+
+@mixin data-container-style {
+	background-color: $color-container;
+	border-radius:8px;
+	box-shadow:0 0 2px 0px $color-container-shadow;
+}
+
+@mixin data-container-sizing {
+	width:100%;
+	max-width:800px;
+	margin:12px auto;
+	padding:6px;
+}
+
+.data-container {
+	@include data-container-style;
+	@include data-container-sizing;
+}

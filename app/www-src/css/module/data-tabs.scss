@@ -1,0 +1,59 @@
+
+
+// COMPONENT - EXPECTED STRUCTURE
+// <.data-tabs>
+// 	<.data-tabse__heading>"A Heading"</.data-tabse__heading>
+//
+// 		<.data__tabs__tab>
+// 			<.data__tabs__tab__data>"Name"</.data__tabs__tab__data>
+// 			<.data__tabs__tab__data>"Value"</.data__tabs__tab__data>
+// 			<.data__tabs__tab__data>"Value"</.data__tabs__tab__data>
+// 		</.data__tabs__tab>
+//
+//		<.data__tabs__tab>...</.data__tabs__tab>
+// </.data-tabs>
+
+.data-tabs{
+	@extend .data-container;
+
+	display:flex;
+	flex-wrap:wrap;
+
+
+	&__heading {
+		@extend .view__heading;
+	}
+
+	&__tab {
+		@mixin build-tab-sizing($tabs-per-row, $tab-horiz-margin, $tab-vert-margin, $padding:16px 12px) {
+			$tab-width: 100%;
+			@if($tabs-per-row != 1) {
+				$tab-width: 100%;
+				$tab-width: calc( (100%/#{$tabs-per-row}) - (#{$tab-horiz-margin*2}) );
+			}
+
+			width: $tab-width;
+			margin: $tab-vert-margin $tab-horiz-margin;
+			padding:$padding;
+		}
+
+		flex-grow:1;
+		@include build-tab-sizing(3, 12px, 0px);
+
+		@include media-tablet {
+			@include build-tab-sizing(2, 12px, 0px);
+			border-bottom:1px solid $color-container-shadow;
+		}
+		@include media-phone {
+			@include build-tab-sizing(1, 0px, 0px);
+		}
+
+		&__data {
+			display:block;
+			&:first-of-type {
+				font-weight:bold;
+				margin-bottom:12px;
+			}
+		}
+	}
+}

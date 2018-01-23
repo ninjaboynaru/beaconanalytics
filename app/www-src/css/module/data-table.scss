@@ -1,0 +1,124 @@
+
+
+// COMPONENT -- EXEPCTED STRUCTURE
+// <div .data-table>
+// 	<.data-table__heading>"Table Name"</.data-table__headings>
+// 	<nav .data-table__sections>
+// 		<.data-table__sections__btn>"Show Table 1"</.data-table__sections__btn>
+// 		<.data-table__sections__btn>"Show Table 2"</.data-table__sections__btn>
+// 	</nav>
+//
+// 	<table .data-table__table>
+// 		<tr .data-table__table__headings>
+// 			<th .data-table__table__headings__heading>"Column 1"></th>
+// 			<th .data-table__table__headings__heading>"Column 2"></th>
+// 		</tr>
+//
+// 		<tr .data-table__table__row>
+// 			<td .data-table__table__row__column>"Data in column 1"</td>
+// 			<td .data-table__table__row__column>"Data in column 2"</td>
+// 		</tr>
+// 		<tr .data-table__table__row>...</tr>
+//
+// 	/table>
+//
+// 	<table .data-table__table .data-table__table--hidden>...</table>
+// </div>
+
+.data-table {
+	@extend .data-container;
+	padding-left:0;
+	padding-right:0;
+	padding-bottom:0;
+
+	&__heading {
+		@extend .view__heading;
+	}
+
+	&__sections {
+		display:flex;
+		width:100%;
+
+
+		&__btn {
+			padding:8px;
+			flex-grow:1;
+			font-size:1rem;
+
+			border:none;
+			background-color:$color-container;
+
+			&:hover {
+				color:#f33535;
+				font-weight:bold;
+				border-bottom:1px solid $color-selected;
+				cursor:pointer;
+			}
+
+			&--selected {
+				color:$color-selected;
+				font-weight:bold;
+				border-bottom:1px solid $color-selected;
+			}
+		}
+	}
+
+	&__table {
+		border-collapse: collapse;
+		width:100%;
+		overflow:auto;
+
+		// Apply CSS to :first-of-type for a selector.
+		// If $invert == true, then apply CSS to all $selector except the :first-of-type.
+		@mixin first-of-type($selector, $invert:false) {
+			@if $invert == false {
+				#{$selector}:first-of-type {
+					@content;
+				}
+			}
+			@else {
+				#{$selector}:not(:first-of-type) {
+					@content;
+				}
+
+			}
+		}
+
+
+		& td, & th {
+			border-bottom:2px solid $color-table-borders;
+			text-align:left;
+			padding:12px 24px;
+		}
+
+		& tr:last-of-type td {
+			border:none;
+		}
+
+		// allign all the text in the table to the right (except the first column of text)
+		@include first-of-type('& th', true) {
+			text-align:right;
+		}
+		@include first-of-type('& td', true) {
+			text-align:right;
+		}
+
+
+		&__headings {
+			background-color: $color-table-headings;
+			&__heading {
+
+			}
+		}
+
+		&__row {
+		}
+
+		&__row__column {
+		}
+
+		&--hidden {
+			display:none;
+		}
+	}
+}

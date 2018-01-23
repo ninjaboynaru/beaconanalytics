@@ -1,0 +1,4 @@
+{
+	"maxQueueSize": 100,
+	"queueWaitTime": 300000
+}

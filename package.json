@@ -1,0 +1,51 @@
+{
+	"name": "beacon-analytics",
+	"description": "",
+	"private": true,
+	"scripts": {
+		"start": "node ./app/bin/startApp.js",
+		"start-dev": "nodemon ./app/bin/startApp.js",
+		"build": "webpack",
+		"watch": "webpack --watch",
+		"build-css": "node-sass ./app/www-src/css/style.scss ./www/css/style.css --source-map true --output-style compressed",
+		"watch-css": "node-sass ./app/www-src/css/style.scss ./www/css/style.css --source-map true --output-style compressed --watch",
+		"lint": "eslint ./server/**/*.js --quiet",
+		"generate-sample": "node ./app/bin/generateSample.js",
+		"analyze-sample": "nodemon ./app/bin/analyzeSample.js",
+		"test": "mocha ./app/server/_tests_ --recursive --reporter spec --exit",
+		"test-integration": "mocha ./app/server/_tests_/unitTests/integrationTests --recursive --reporter spec --exit",
+		"test-unit": "mocha ./app/server/_tests_/unitTests --recursive --reporter spec --exit"
+	},
+	"dependencies": {
+		"accept-language-parser": "^1.4.1",
+		"d3": "^4.12.2",
+		"express": "^4.16.2",
+		"express-ws": "^3.0.0",
+		"json-stringify-safe": "^5.0.1",
+		"mongoose": "^4.13.7",
+		"node-mocks-http": "^1.6.6",
+		"node-sass": "^4.7.2",
+		"ua-parser": "^0.3.5",
+		"utils-error-to-json": "^1.0.0",
+		"whatwg-fetch": "^2.0.3",
+		"winston": "^3.0.0-rc1",
+		"winston-mongodb": "^4.0.0-rc1",
+		"ws": "^3.3.3"
+	},
+	"devDependencies": {
+		"babel-core": "^6.26.0",
+		"babel-loader": "^7.1.2",
+		"babel-preset-env": "^1.6.1",
+		"chai": "^4.1.2",
+		"chai-http": "^3.0.0",
+		"chai-json-schema": "^1.5.0",
+		"eslint": "^4.14.0",
+		"eslint-config-prettier": "^2.9.0",
+		"eslint-loader": "^1.9.0",
+		"mocha": "^4.1.0",
+		"nodemon": "^1.14.3",
+		"random-useragent": "^0.3.1",
+		"uglifyjs-webpack-plugin": "^1.1.5",
+		"webpack": "^3.10.0"
+	}
+}

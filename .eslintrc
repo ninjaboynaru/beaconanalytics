@@ -1,0 +1,24 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "eslint-config-prettier"
+    ],
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true
+    } ,
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "rules": {
+        "new-cap": ["error", { "newIsCap": false, "capIsNew": false }],
+        "no-console": 0,
+        "eqeqeq": 0,
+        "no-inner-declarations": 0
+    },
+    "globals": {
+        "API_KEY": true
+    }
+}
