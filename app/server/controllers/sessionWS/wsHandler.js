@@ -7,13 +7,9 @@ const queueConfig = require('../../../config/sessionQueue.config.json');
 const wsConfig = require('../../../config/ws.config.json');
 
 let connectionCount = 0;
-let devQueueWaitTime;
-if(process.env.NODE_ENV != 'production') {
-	// if in development, only wait 50 miliseconds instead of the wait time set in the config file
-	devQueueWaitTime = 50;
-}
+let queueWaitTime = process.env.QUEUE_WAIT_TIME || queueConfig.queueWaitTime;
 
-const queue =  new SessionQueue(queueConfig.maxQueueSize, devQueueWaitTime || queueConfig.queueWaitTime, logger);
+const queue =  new SessionQueue(queueConfig.maxQueueSize, queueWaitTime, logger);
 
 /**
 * @route-handler
