@@ -1,4 +1,5 @@
 {
 	"maxConnections": 100,
-	"maxConnectionTime": 600000
+	"maxConnectionTime": 600000,
+	"pingFrequency": 10000
 }
