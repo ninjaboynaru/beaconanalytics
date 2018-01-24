@@ -53,7 +53,8 @@ if(window.beaconAnalytics == null)
 				}
 			});
 
-			socket.addEventListener('close', function(){
+			socket.addEventListener('close', function(reason){
+				console.log('beaconAnalutics websocket closed. Reason: ', reason);
 				this._socket = null;
 			}.bind(this));
 
@@ -95,18 +96,18 @@ if(window.beaconAnalytics == null)
 
 		_sendClickEvent: function sendClickEvent(event)
 		{
-			const itemId = event.target.getAttribute('beacon-click');
-			const itemCategory = event.target.getAttribute('beacon-click-category');
+			const itemId = event.currentTarget.getAttribute('beacon-click');
+			const itemCategory = event.currentTarget.getAttribute('beacon-click-category');
 
-			if(itemId == false || itemCategory)
+			if(itemId == false || itemCategory == false)
 			{
 				return;
 			}
-			else if(this._socket.readyState != this._socketStates.OPEN)
+			else if(this._socket == null || this._socket.readyState != this._socketStates.OPEN)
 			{
 				return;
 			}
-
+			
 			const clickData = JSON.stringify({
 				dataType:3,
 				itemId: itemId,
