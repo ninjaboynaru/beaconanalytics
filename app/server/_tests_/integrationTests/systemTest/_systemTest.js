@@ -8,8 +8,8 @@ const serverPort = 8080;
 const chai = require('chai');
 
 const expect = chai.expect;
-const server = require('../../server.js');
-const generateSampleData = require('../../utils/generateSampleData.js');
+const server = require('../../../server.js');
+const generateSampleData = require('../../../utils/generateSampleData.js');
 
 const testWS = require('./systemTest.ws.js');
 const testDataAPI = require('./systemTest.dataApi.js');
