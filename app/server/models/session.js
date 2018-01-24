@@ -55,8 +55,16 @@ const sessionSchema = new mongoose.Schema({
 */
 sessionSchema.methods.start = function(userAgentHeader, langHeader, ipAddress)
 {
-	const lang = langParser.parse(langHeader)[0].code;
 	const agent = uaParser.parse(userAgentHeader);
+	const langArray = langParser.parse(langHeader);
+	let lang;
+
+	if(langArray[0] && langArray[0].code) {
+		lang = langArray[0].code;
+	}
+	else {
+		lang = 'unknown';
+	}
 
 	this.userAgent = userAgentHeader;
 	this.lang = lang;
