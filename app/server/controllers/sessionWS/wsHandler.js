@@ -22,11 +22,64 @@ function wsHandler(ws, httpRequest) {
 	let timeout = false;
 	let authorized = false;
 	let session;
+	let clientUnresponsive = false;
 
 	const connectionDurationTimeout = setTimeout(function(){
 		timeout = true;
 		ws.close();
 	}, wsConfig.maxConnectionTime);
+
+
+	const pingInterval = setInterval(function pingClient(){
+		if(clientUnresponsive == true) {
+			logger.debug('User did not respond to ping. Disconnecting');
+			ws.close();
+		}
+		else {
+			clientUnresponsive = true;
+			ws.ping();
+		}
+	}, process.env.PING_FREQUENCY || wsConfig.pingFrequency);
+
+
+	ws.on('pong', function(){
+		logger.debug('User has responded to ping');
+		clientUnresponsive = false;
+	});
+
+	ws.on('close', function() {
+		connectionCount -= 1;
+		clearTimeout(connectionDurationTimeout);
+		clearInterval(pingInterval);
+
+		if(authorized == false || timeout == true || clientUnresponsive == true)
+		{
+			return;
+		}
+		else
+		{
+			session.end();
+			queue.enqueueSession(session);
+		}
+	});
+
+	ws.on('error', function(error) {
+		if(error.code == 'ECONNRESET')
+		{
+			ws.close();
+			return;
+		}
+		else
+		{
+			const metaData = {error:error, session:session, websocket:ws, request:httpRequest};
+			logger.error({
+				message:'Error occured in the sesssion websocket route',
+				meta:metaData
+			});
+
+			ws.close();
+		}
+	});
 
 	function sendSession() {
 		const jsonString = JSON.stringify({session:session});
@@ -120,52 +173,19 @@ function wsHandler(ws, httpRequest) {
 		}
 		else if(data.dataType == 3)
 		{
-			if(data.itemId)
+			if(data.itemId && data.itemCategory)
 			{
 				session.addClick(data.itemId, data.itemCategory);
 				sendSession();
 			}
 			else
 			{
-				ws.send(errorBuilder.missingParameter('dataType') );
+				ws.send(errorBuilder.missingParameter('itemId or itemCategory') );
 			}
 		}
 		else
 		{
 			ws.send(errorBuilder.buildError('Unrecognized Input', 'The provided input is unrecognized, malformed, missing parameters, or does not match the input data structure.') );
-		}
-	});
-
-	ws.on('close', function() {
-		connectionCount -= 1;
-		clearTimeout(connectionDurationTimeout);
-
-		if(authorized == false || timeout == true)
-		{
-			return;
-		}
-		else
-		{
-			session.end();
-			queue.enqueueSession(session);
-		}
-	});
-
-	ws.on('error', function(error) {
-		if(error.code == 'ECONNRESET')
-		{
-			ws.close();
-			return;
-		}
-		else
-		{
-			const metaData = {error:error, session:session, websocket:ws, request:httpRequest};
-			logger.error({
-				message:'Error occured in the sesssion websocket route',
-				meta:metaData
-			});
-
-			ws.close();
 		}
 	});
 
