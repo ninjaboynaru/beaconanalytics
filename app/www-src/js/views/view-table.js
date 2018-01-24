@@ -65,6 +65,8 @@ TableView.prototype.setHeading = function setHeading(heading) {
 * @returns {TableView} - This TableView object.
 */
 TableView.prototype.render = function render(tableDataArg) {
+	console.log('Raw table data: ', tableDataArg);
+
 	const tableHTML = 'table';
 	const headingContainerHTML = 'tr';
 	const headingHTML = 'th';
@@ -92,11 +94,11 @@ TableView.prototype.render = function render(tableDataArg) {
 	.append(headingHTML).attr('class', 'data-table__table__headings__heading')
 	.text( (headingText)=>headingText );
 
-
-	const rows = tables.selectAll(rowHTML)
+	// :not(:fisrt-of-type) to skip over headings (assuming headings and rows have same html tag)
+	const rows = tables.selectAll(`${rowHTML}:not(:first-of-type)`)
 	.data( (table)=>table.rows )
 	.enter()
-	.append(rowHTML)
+	.insert(rowHTML)
 	.attr('class', 'data-table__table__row');
 
 	// columns
