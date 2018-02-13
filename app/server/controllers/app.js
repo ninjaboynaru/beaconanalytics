@@ -1,7 +1,7 @@
 const express = require('express');
 const logger = require('../services/logger.js');
 const staticRoute = require('./staticRoute.js');
-const dataRoute = require('./data/_dataRoute.js');
+const dataRoute = require('./data/dataRoute.js');
 
 
 const app = express();
