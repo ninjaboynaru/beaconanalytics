@@ -1,18 +1,16 @@
 const express = require('express');
-const parseTimeRange = require('./middleware/parseTimeRange.js');
+const parseTimeRange = require('../middleware/parseTimeRange.js');
 
 /**
 * @Route
-* Return a general overview of the analytics data.
+* Return a controller that responds with general overview of the analytics data.
 * Accepts ?to and ?from query parameters.
 *
 * Requires the session model to be injected as the first argument.
 */
-const dataOverviewRoute = function(sessionModelRef){
-	const router = express.Router();
-
-	router.use(parseTimeRange);
-	router.get('/overview', function(request, response){
+const dataOverviewController = function(sessionModelRef){
+	
+	return function dataOverview(request, response) {
 		sessionModelRef.getAnalyticsOverview(request.dateRange, function(error, result){
 			if(error) {
 				response.status(500).end();
@@ -21,10 +19,8 @@ const dataOverviewRoute = function(sessionModelRef){
 				response.status(200).json(result);
 			}
 		});
-	});
-
-	return router;
+	}
 };
 
 
-module.exports = dataOverviewRoute;
+module.exports = dataOverviewController;

@@ -1,8 +1,8 @@
 const path = require('path');
 
 
-function testParseTimeRange(controllersDirectory, expect, httpMock) {
-	const parseTimeRange = require(path.join(controllersDirectory, '/data/middleware/parseTimeRange.js'));
+function testParseTimeRange(routesDirectory, expect, httpMock) {
+	const parseTimeRange = require(path.join(routesDirectory, '/data/middleware/parseTimeRange.js'));
 
 	describe('Parse time range middleware tests', function(){
 		it('Appends a dateRange property to the request, with correct date objects', function(){

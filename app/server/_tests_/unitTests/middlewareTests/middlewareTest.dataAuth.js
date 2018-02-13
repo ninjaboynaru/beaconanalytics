@@ -1,11 +1,11 @@
 const path = require('path');
 
 
-function testDataAuthHandler(controllersDirectory, expect, httpMock) {
+function testDataAuthHandler(routesDirectory, expect, httpMock) {
 	const testingKey = 'Z1HZ123';
 	const invalidKey = 'This is definitely not a valid key';
 
-	const dataAuthHandler = require(path.join(controllersDirectory, '/data/dataAuth.js'));
+	const dataAuthHandler = require(path.join(routesDirectory, '/data/controllers/dataAuth.js'));
 
 	describe('Data authorization middleware tests', function(){
 		it('Can respond with 403 error on invalid key and not call the next() function', function(){

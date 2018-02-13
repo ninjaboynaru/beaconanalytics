@@ -6,9 +6,9 @@ const testDataAuth = require('./middlewareTest.dataAuth.js');
 const testCountQuery = require('./middlewareTest.countQuery.js');
 const testTimeRange = require('./middlewareTest.timeRange.js');
 
-const controllersPath = '../../../controllers/';
+const routesPath = '../../../routes/';
 
 
-testDataAuth(controllersPath, expect, httpMock);
-testCountQuery(controllersPath, expect, httpMock);
-testTimeRange(controllersPath, expect, httpMock);
+testDataAuth(routesPath, expect, httpMock);
+testCountQuery(routesPath, expect, httpMock);
+testTimeRange(routesPath, expect, httpMock);

@@ -13,7 +13,7 @@
 		"generate-sample": "node ./app/bin/generateSample.js",
 		"analyze-sample": "nodemon ./app/bin/analyzeSample.js",
 		"test": "mocha ./app/server/_tests_ --recursive --reporter spec --exit",
-		"test-integration": "mocha ./app/server/_tests_/unitTests/integrationTests --recursive --reporter spec --exit",
+		"test-integration": "mocha ./app/server/_tests_/integrationTests --recursive --reporter spec --exit",
 		"test-unit": "mocha ./app/server/_tests_/unitTests --recursive --reporter spec --exit"
 	},
 	"dependencies": {

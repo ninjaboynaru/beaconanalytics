@@ -17,6 +17,8 @@ if(window.beaconAnalytics == null)
 
 
 		_initSocket: function init() {
+
+
 			let socket = this._socket;
 			const socketStates = this._socketStates;
 
@@ -107,7 +109,7 @@ if(window.beaconAnalytics == null)
 			{
 				return;
 			}
-			
+
 			const clickData = JSON.stringify({
 				dataType:3,
 				itemId: itemId,
@@ -117,7 +119,14 @@ if(window.beaconAnalytics == null)
 		},
 
 
-		init: function init() {
+		init: function init(customKey, customUrl) {
+			if(customKey) {
+				beaconAnalytics._key = customKey;
+			}
+			if(customUrl) {
+				beaconAnalytics._serverUrl = customUrl;
+			}
+
 			beaconAnalytics._initDOMEvents.bind(beaconAnalytics)();
 			beaconAnalytics._initSocket.bind(beaconAnalytics)();
 		},

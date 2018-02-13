@@ -1,5 +1,5 @@
-const app = require('./controllers/app.js');
-const appWS = require('./controllers/appWS.js');
+const app = require('./routes/app.js');
+const appWS = require('./ws/appWS.js');
 const database = require('./database.js');
 const logger = require('./services/logger.js');
 

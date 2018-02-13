@@ -1,15 +1,19 @@
-const sessionModel = require('../../models/session.js');
+const sessionModel = require('../models/session.js');
 const SessionQueue = require('./sessionQueue.js');
 const errorBuilder = require('./errorBuilder.js');
-const verifyCredentials = require('../../services/verifyCredentials.js');
-const logger = require('../../services/logger.js');
-const queueConfig = require('../../../config/sessionQueue.config.json');
-const wsConfig = require('../../../config/ws.config.json');
+const verifyCredentials = require('../services/verifyCredentials.js');
+const logger = require('../services/logger.js');
+const queueConfig = require('../../config/sessionQueue.config.json');
+const wsConfig = require('../../config/ws.config.json');
 
 let connectionCount = 0;
 let queueWaitTime = process.env.QUEUE_WAIT_TIME || queueConfig.queueWaitTime;
+if(process.env.NODE_ENV != 'production') {
+	queueWaitTime = 2000;
+}
 
 const queue =  new SessionQueue(queueConfig.maxQueueSize, queueWaitTime, logger);
+
 
 /**
 * @route-handler

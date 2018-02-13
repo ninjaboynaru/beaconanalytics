@@ -1,8 +1,8 @@
 const path = require('path');
 
 
-function testParseCountQuery(controllersDirectory, expect, httpMock) {
-	const parseCountQuery = require(path.join(controllersDirectory, '/data/middleware/parseCountQuery.js'));
+function testParseCountQuery(routesDirectory, expect, httpMock) {
+	const parseCountQuery = require(path.join(routesDirectory, '/data/middleware/parseCountQuery.js'));
 
 	describe('Parse count query middleware tests', function(){
 		it('Appends a count property to the request event when an invalid count query is passed', function(){

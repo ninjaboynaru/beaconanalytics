@@ -1,4 +1,4 @@
-const logger = require('../../services/logger.js');
+const logger = require('../services/logger.js');
 
 
 /**

@@ -1,5 +1,5 @@
 const express = require('express');
-const verifyCredentials = require('../../services/verifyCredentials.js');
+const verifyCredentials = require('../../../services/verifyCredentials.js');
 
 /**
 * @Route
