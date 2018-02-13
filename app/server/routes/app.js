@@ -1,6 +1,6 @@
 const express = require('express');
 const logger = require('../services/logger.js');
-const staticRoute = require('./staticRoute.js');
+const staticRoute = require('./static/staticRoute.js');
 const dataRoute = require('./data/dataRoute.js');
 
 

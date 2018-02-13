@@ -1,5 +1,6 @@
 const app = require('./routes/app.js');
 const appWS = require('./ws/appWS.js');
+const viewEngine = require('./viewEngine.js');
 const database = require('./database.js');
 const logger = require('./services/logger.js');
 
@@ -36,16 +37,22 @@ const serverInterface = {
 
 		function onMongoSuccess() {
 			logger.debug('Succesfully connected to mongo databse');
+			let connected = false;
 
 			this._serverInstance = appToUse.listen(port, function(){
 				logger.debug(`Server started on port ${port}`);
+				connected = true;
 				callback(null, this._serverInstance);
 			});
 
+			viewEngine(appToUse);
 			appWS(this._serverInstance);
 
 			this._serverInstance.on('error', function(error){
-				callback(error, null);
+				// the callback is only for connection errors. not other errors that may occur.
+				if(connected == false) {
+					callback(error, null);
+				}
 			});
 		}
 		function onMongoError(error) {
@@ -96,5 +103,8 @@ const serverInterface = {
 	// }
 
 }
+
+serverInterface.start = serverInterface.start.bind(serverInterface);
+serverInterface.close = serverInterface.close.bind(serverInterface);
 
 module.exports = serverInterface;

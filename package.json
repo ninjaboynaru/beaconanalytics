@@ -20,6 +20,7 @@
 		"accept-language-parser": "^1.4.1",
 		"d3": "^4.12.2",
 		"express": "^4.16.2",
+		"express-handlebars": "^3.0.0",
 		"express-ws": "^3.0.0",
 		"json-stringify-safe": "^5.0.1",
 		"mongoose": "^4.13.7",
