@@ -1,4 +1,5 @@
 const handlebars = require('express-handlebars');
+const locals = require('./locals.js');
 const path = require('path');
 
 module.exports = function applyViewEngine(expressApp) {
@@ -14,7 +15,10 @@ module.exports = function applyViewEngine(expressApp) {
 	expressApp.engine('.hbs', handleBarsInstance);
 	expressApp.set('view engine', '.hbs');
 
-	expressApp.locals = {
-		title: 'Beacon'
+	if(typeof expressApp.locals == 'object') {
+		expressApp.locals = Object.assign({}, locals, expressApp.locals);
+	}
+	else {
+		expressApp.locals = locals;
 	}
 }

@@ -1,0 +1,18 @@
+
+.footer {
+	margin-top:24px;
+	padding-bottom:64px;
+	&__row {
+		text-align:center;
+
+		&__element {
+			padding:0 12px;
+			@include media-phone {
+				font-size:0.7rem;
+			}
+		}
+		a#{&}__element{
+			text-decoration:none;
+		}
+	}
+}

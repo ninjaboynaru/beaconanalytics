@@ -7,7 +7,7 @@
 		"start-dev": "nodemon ./app/bin/startApp.js",
 		"build": "webpack",
 		"watch": "webpack --watch",
-		"build-css": "node-sass ./app/www-src/css/style.scss ./www/css/style.css --source-map true --output-style compressed",
+		"build-css": "node-sass ./app/www-src/css/style.scss ./www/css/style.css --output-style compressed",
 		"watch-css": "node-sass ./app/www-src/css/style.scss ./www/css/style.css --source-map true --output-style compressed --watch",
 		"lint": "eslint ./server/**/*.js --quiet",
 		"generate-sample": "node ./app/bin/generateSample.js",

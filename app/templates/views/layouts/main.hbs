@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<title>Beacon Analytics</title>
+		<title>{{title}}</title>
 		<meta charset='utf-8'>
 		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 
@@ -10,13 +10,21 @@
 	</head>
 	<body>
 		<header class='header'>
-			<h4>Beacon Analytics</h5>
-			<p>A solution by <span class='header__name'>Thiago HPC</span></p>
+			<h1 class='header__heading'>{{name}}</h1>
+			<p>A solution by <span class='author'>{{author}}</span></p>
 		</header>
 
 		{{{body}}}
 
-		<footer>
+		<footer class='footer'>
+			<div class='footer__row'>
+				<p class='footer__row__element author'>{{author}}</p>
+			</div>
+			<div class='footer__row'>
+				{{#each footerLinks}}
+					<a class='footer__row__element' href={{href}}>{{label}}</a>
+				{{/each}}
+			</div>
 		</footer>
 	</body>
 </html>
