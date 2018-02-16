@@ -11,6 +11,7 @@ function isValidTimestamp(possibleTimestamp) {
 /**
 * @middleware
 * Append a dateRange object to the request object given "from" and "to" query parameters on the request object.
+* "form" and "to" query parameters should be valid javascript timestams (in miliseconds)
 * The dateRange object will have "from" and "to" properties that are Date objects.
 *
 * If "from" and "to" are missing or invalid, a default dateRange is used
