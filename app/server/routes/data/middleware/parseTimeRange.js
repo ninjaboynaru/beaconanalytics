@@ -4,7 +4,7 @@ function isValidTimestamp(possibleTimestamp) {
 		return false;
 	}
 	else {
-		return new Date(possibleTimestamp).getTime() > 0
+		return new Date(possibleTimestamp).getTime() > 0;
 	}
 }
 
@@ -24,14 +24,16 @@ function isValidTimestamp(possibleTimestamp) {
 function parseTimeRange(request, response, next) {
 	const dateRange = {from:null, to:null};
 
-	const fromQuery = request.query.from;
-	const toQuery = request.query.to;
+	const fromQuery = Number(request.query.from);
+	const toQuery = Number(request.query.to);
 
-	if(isValidTimestamp(fromQuery) && isValidTimestamp(toQuery) ) {
+	// fromQuery + toQuery > 0 to ensure empty strings do not pass as valid dates
+	if(fromQuery + toQuery > 0 && isValidTimestamp(fromQuery) && isValidTimestamp(toQuery)) {
 		dateRange.from = new Date(fromQuery);
 		dateRange.to = new Date(toQuery);
 	}
 	else {
+		console.log(' -- timestamps are not valid: ', fromQuery, toQuery);
 		/*  DEFAULTS
 		* from - date is 1 month ago
 		* to - 2 date is 2 days in the future

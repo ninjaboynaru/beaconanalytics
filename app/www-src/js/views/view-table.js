@@ -39,6 +39,7 @@ TableView.prototype.initialize = function initialize() {
 
 	return this;
 }
+
 TableView.prototype.setHeading = function setHeading(heading) {
 	this.heading.textContent = heading;
 
@@ -54,7 +55,6 @@ TableView.prototype.setHeading = function setHeading(heading) {
 * @property {string[][]} rows
 */
 
-
 /**
 * @function
 * Render a table table or group of tables.
@@ -65,7 +65,7 @@ TableView.prototype.setHeading = function setHeading(heading) {
 * @returns {TableView} - This TableView object.
 */
 TableView.prototype.render = function render(tableDataArg) {
-	console.log('Raw table data: ', tableDataArg);
+	this.clear();
 
 	const tableHTML = 'table';
 	const headingContainerHTML = 'tr';
@@ -131,6 +131,12 @@ TableView.prototype.render = function render(tableDataArg) {
 	});
 
 	return this;
+}
+
+TableView.prototype.clear = function clear() {
+	d3.select(this.container).selectAll('table').remove();
+	d3.select(this.sections).selectAll('button').remove();
+
 }
 
 

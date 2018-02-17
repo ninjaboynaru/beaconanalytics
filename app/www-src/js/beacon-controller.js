@@ -1,5 +1,6 @@
 import TabView from './views/view-tabs.js'
 import TableView from './views/view-table.js';
+import DateView from './views/view-date.js';
 import BeaconData from './beacon-data.js';
 
 
@@ -56,19 +57,15 @@ const beaconUtils = {
 * @param {TabView} customTableView - If specified, this will be used instead of the default customTableView class.
 * @param {TabView} customBeaconData - If specified, this will be used instead of the default customBeaconData class.
 */
-function Beacon(rootElement, customTabView, customTableView, customBeaconData) {
+function Beacon(customTabView, customTableView, customBeaconData) {
 
-	if(typeof rootElement == 'string') {
-		this.rootElement = document.getElementById(rootElement);
-		if(this.rootElement == null) {
-			throw new Error(`Element with id ${rootElement} could not be found. Beacon is unable to initialize.`);
-		}
-	}
-	else if(rootElement instanceof window.Element) {
-		this.rootElement = rootElement;
-	}
-	else {
-		throw new TypeError('The "rootElement" argument of new Beacon() must be a string or an Element object');
+	const rootId = 'js-root';
+	const fromDateId = 'js-date-from';
+	const toDateId = 'js-date-to';
+
+	this.rootElement = document.getElementById(rootId);
+	if(this.rootElement == null) {
+		throw new Error(`Element with id ${rootId} could not be found. Beacon is unable to initialize.`);
 	}
 
 	const tabView = customTabView || TabView;
@@ -76,19 +73,40 @@ function Beacon(rootElement, customTabView, customTableView, customBeaconData) {
 	const dataClass = customBeaconData || BeaconData;
 
 	this.data = new dataClass();
+	this.fromDateView = new DateView(fromDateId);
+	this.toDateView = new DateView(toDateId);
 	this.basicDataView = new tabView(this.rootElement);
 	this.statisticsDataView = new tableView(this.rootElement);
 	this.clickDataView = new tableView(this.rootElement);
 }
 
 Beacon.prototype.initialize = function initialize() {
-	this.basicDataView.initialize().setHeading('Loading');
-	this.statisticsDataView.initialize().setHeading('Loading');
-	this.clickDataView.initialize().setHeading('Loading');
+	this.fromDateView.initialize();
+	this.toDateView.initialize();
+	this.basicDataView.initialize();
+	this.statisticsDataView.initialize();
+	this.clickDataView.initialize();
 
-	this.data.getBasicData(this.renderBasicData.bind(this) );
-	this.data.getAllStatisticsData(this.renderStatisticsData.bind(this) );
-	this.data.getClickData(this.renderClickData.bind(this) );
+	this.fromDateView.addChangeListener(this.reloadData.bind(this));
+	this.toDateView.addChangeListener(this.reloadData.bind(this));
+	this.reloadData();
+
+}
+
+Beacon.prototype.reloadData = function reloadData() {
+	this.basicDataView.setHeading('Loading');
+	this.statisticsDataView.setHeading('Loading');
+	this.clickDataView.setHeading('Loading');
+
+	const fromDate = this.fromDateView.getDate();
+	const toDate = this.toDateView.getDate();
+	const fromTime = fromDate ? fromDate.getTime() : null;
+	const toTime = toDate ? toDate.getTime() : null;
+	const options = {from:fromTime, to:toTime};
+
+	this.data.getBasicData(this.renderBasicData.bind(this), options);
+	this.data.getAllStatisticsData(this.renderStatisticsData.bind(this), options);
+	this.data.getClickData(this.renderClickData.bind(this), options);
 
 }
 

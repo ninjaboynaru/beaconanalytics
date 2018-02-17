@@ -2,8 +2,6 @@ import BeaconController from './beacon-controller.js';
 
 
 document.addEventListener('DOMContentLoaded', function(){
-	const beacon = new BeaconController('js-root');
+	const beacon = new BeaconController();
 	beacon.initialize();
 })
-
-

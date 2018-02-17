@@ -22,7 +22,7 @@ if(envType == 'production')
 else
 {
 	console.log(`Webpack building for development. Using API Key: ${developmentAPIKey}`);
-	devtool = 'eval-source-map';
+	devtool = 'source-map';
 	apiKeyToUse = developmentAPIKey;
 }
 

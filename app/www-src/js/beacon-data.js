@@ -14,7 +14,7 @@ function BeaconData(key) {
 BeaconData.prototype._buildURL = function _buildURL( {endpoint, count, from, to, statType}={}) {
 	const countQuery = count ? `count=${count}&` : '';
 	const fromQuery = from ? `from=${from}&` : '';
-	const toQuery = to ? `count=${to}&` : '';
+	const toQuery = to ? `to=${to}&` : '';
 	const statTypeQuery = statType ? `statType=${statType}&` : '';
 
 	const fullQuery = '?' + countQuery + statTypeQuery + fromQuery + toQuery;
@@ -57,38 +57,30 @@ BeaconData.prototype._makeRequest = function _makeRequest(url, callback) {
 }
 
 
-BeaconData.prototype.getBasicData = function getBasicData(callback) {
-	const url = this._buildURL({endpoint:'overview'});
+BeaconData.prototype.getBasicData = function getBasicData(callback, options) {
+	const finalOpts = Object.assign({count:6}, options, {endpoint:'overview'});
+	const url = this._buildURL(finalOpts);
 	this._makeRequest(url, callback);
 
 
 }
 
-BeaconData.prototype.getStatisticsData = function getStatsticsData(callback, statType, count=6) {
-	const url = this._buildURL({
-		endpoint:'stats',
-		count: count,
-		statType: statType
-	});
+BeaconData.prototype.getStatisticsData = function getStatsticsData(callback, options) {
+	const finalOpts = Object.assign({count:6}, options, {endpoint:'stats'});
+	const url = this._buildURL(finalOpts);
 	this._makeRequest(url, callback);
 
 }
 
-BeaconData.prototype.getAllStatisticsData = function getAllStatsticsData(callback, count=6) {
-	const url = this._buildURL({
-		endpoint:'stats',
-		count: count,
-		statType: 'all'
-	});
+BeaconData.prototype.getAllStatisticsData = function getAllStatsticsData(callback, options) {
+	const finalOpts = Object.assign({count:6}, options, {endpoint:'stats', statType:'all'});
+	const url = this._buildURL(finalOpts);
 	this._makeRequest(url, callback);
 }
 
-BeaconData.prototype.getClickData = function getClickData(callback, count=6) {
-	const url = this._buildURL({
-		endpoint:'stats',
-		count: count,
-		statType: 'click'
-	});
+BeaconData.prototype.getClickData = function getClickData(callback, options) {
+	const finalOpts = Object.assign({count:6}, options, {endpoint:'stats', statType:'click'});
+	const url = this._buildURL(finalOpts);
 	this._makeRequest(url, callback);
 }
 

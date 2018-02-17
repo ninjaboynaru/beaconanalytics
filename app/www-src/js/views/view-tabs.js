@@ -61,6 +61,8 @@ TabView.prototype.setHeading = function setHeading(heading) {
 * @property {DataItem[]} tabData - An array of DataItems, each representing a tab to render.
 */
 TabView.prototype.render = function render(tabData) {
+	this.clear();
+	
 	const tabs = d3.select(this.container).selectAll('div').data(tabData).enter().append('div');
 	tabs.attr('class', 'data-tabs__tab');
 
@@ -69,6 +71,10 @@ TabView.prototype.render = function render(tabData) {
 	tabs.append('span').text( (d)=>d.value ).attr('class', dataCSS);
 
 	return this;
+}
+
+TabView.prototype.clear = function clear() {
+	d3.select(this.container).selectAll('div').remove();
 }
 
 
