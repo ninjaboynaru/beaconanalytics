@@ -33,7 +33,6 @@ function parseTimeRange(request, response, next) {
 		dateRange.to = new Date(toQuery);
 	}
 	else {
-		console.log(' -- timestamps are not valid: ', fromQuery, toQuery);
 		/*  DEFAULTS
 		* from - date is 1 month ago
 		* to - 2 date is 2 days in the future

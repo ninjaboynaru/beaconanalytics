@@ -87,6 +87,19 @@ Beacon.prototype.initialize = function initialize() {
 	this.statisticsDataView.initialize();
 	this.clickDataView.initialize();
 
+	const defaultFromDate = new Date();
+	const defaultToDate = new Date();
+
+	// default date range is 1 month ago -> 2 days tommarow
+	defaultFromDate.setMonth(defaultToDate.getMonth() - 1);
+	defaultToDate.setDate(defaultToDate.getDate() + 2);
+
+	this.fromDateView.setDate(defaultFromDate);
+	this.toDateView.setDate(defaultToDate);
+
+	this.fromDateView.setMaxDate(defaultToDate);
+	this.toDateView.setMinDate(defaultToDate);
+
 	this.fromDateView.addChangeListener(this.reloadData.bind(this));
 	this.toDateView.addChangeListener(this.reloadData.bind(this));
 	this.reloadData();
@@ -97,6 +110,9 @@ Beacon.prototype.reloadData = function reloadData() {
 	this.basicDataView.setHeading('Loading');
 	this.statisticsDataView.setHeading('Loading');
 	this.clickDataView.setHeading('Loading');
+
+	this.fromDateView.setMaxDate(this.toDateView.getDate() );
+	this.toDateView.setMinDate(this.fromDateView.getDate() );
 
 	const fromDate = this.fromDateView.getDate();
 	const toDate = this.toDateView.getDate();
@@ -171,9 +187,8 @@ Beacon.prototype._parseStatisticsData = function _parseStatisticsData(rawData) {
 	const browserTable = beaconUtils.tableDataFromObjects('Browser', tableHeadings, rawData.browser, accessorFn);
 	const osTable = beaconUtils.tableDataFromObjects('OS', tableHeadings, rawData.os, accessorFn);
 	const deviceTable = beaconUtils.tableDataFromObjects('Device', tableHeadings, rawData.device, accessorFn);
-	const referrerTable = beaconUtils.tableDataFromObjects('Referrer', tableHeadings, rawData.referrer, accessorFn);
 
-	return [browserTable, osTable, deviceTable, referrerTable];
+	return [browserTable, osTable, deviceTable];
 }
 
 

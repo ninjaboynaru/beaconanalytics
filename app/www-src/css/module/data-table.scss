@@ -31,13 +31,17 @@
 	padding-right:0;
 	padding-bottom:0;
 
+	overflow-x:scroll;
+
 	&__heading {
 		@extend .view__heading;
 	}
 
 	&__sections {
 		display:flex;
+		flex-wrap:wrap;
 		width:100%;
+
 
 
 		&__btn {
