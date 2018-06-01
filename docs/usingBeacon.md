@@ -10,7 +10,7 @@ Beacon is capable of gathering data about what users are clicking on. It does th
 To have beacon gather data about how many times an element is clicked, add the **beacon-click** and **beacon-click-category** to the elements in question.  
 
 - **beacon-click** should be set to a unique name to identify that element
-- **beaon-click-category** should be the category the element belongs to, for example *navigation*, or *videos*
+- **beacon-click-category** should be the category the element belongs to, for example *navigation*, or *videos*
 - **beacon-click** MUST be unique but **beacon-click-category** does not have to be unique.
 
 ### Dynamic Content

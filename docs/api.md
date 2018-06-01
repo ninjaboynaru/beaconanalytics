@@ -4,22 +4,22 @@ The Beacon REST API is composed of 2 endpoints
 - *data/:key/stats*
 
 ### Authorization
-Be sure to define the `key` env variable in the sever environment, and then pass that key with your API requests.
+Be sure to define the `key` env variable in the server environment, and then pass that key with your API requests.
 
 ### Overview Endpoint
-*data/:key/overview* returns general statistics data about overall usage.  
+*data/:key/overview* returns general statistical data about overall usage.  
 The data returned is
 - The average session duration
 - The average break duration (if the user leaves the website and returns, how long were they gone?)
 - Total sessions
 
 ##### Response
-The response is a JSON object matching the fallowing
+The response is a JSON object matching the following
 ```javascript
 {
-	total: number,
-	avgSessionDuration: number,
-	avgBreakDuration: number
+    total: number,
+    avgSessionDuration: number,
+    avgBreakDuration: number
 }
 ```
 
@@ -36,15 +36,15 @@ Possible **statType** values are:
 > data/1234/stats/?statType=browser
 
 ##### Response
-The response is a JSON array of objects matching the fallowing
+The response is a JSON array of objects matching the following
 ```javascript
-	{
-		name: string,
-		total: number,
-		percent: number
-	}
+    {
+        name: string,
+        total: number,
+        percent: number
+    }
 ```
-If the requested statType was browser the **name** property wold be something like Firefox, or Chrome.
+If the requested statType was browser the **name** property would be something like Firefox, or Chrome.
 
 
 ### Stats ALL endpoints
@@ -53,25 +53,25 @@ If accessing the [stats endpoint](#stats-endpoint) and the **statType** query st
 > data/1234/stats/?statType=all
 
 ##### Response
-The response is a JSON object matching the fallowing
+The response is a JSON object matching the following
 ```javascript
 {
-	browser:[
-		{
-			name:'Firefox',
-			total:10,
-			percent:12.9323
-		},
-		{
-			name:'Chrome',
-			total:34,
-			percent:62.9323
-		}
-		...etc...
-	]
-	os:[...//same object structure as above]
-	device:[...//same object structure as above],
-	referrer:[...//same object structure as above]
+    browser:[
+        {
+            name:'Firefox',
+            total:10,
+            percent:12.9323
+        },
+        {
+            name:'Chrome',
+            total:34,
+            percent:62.9323
+        }
+        ...etc...
+    ]
+    os:[...//same object structure as above]
+    device:[...//same object structure as above],
+    referrer:[...//same object structure as above]
 }
 ```
 
@@ -85,11 +85,11 @@ NOT YET DOCUMENTED
 Use manual tests to see the response structure.
 
 ### Query Parameters
-ALL endpoints accept the fallowing **optional** query parameters
+ALL endpoints accept the following **optional** query parameters
 - *?count=* - How many results to return. If not specified, to large, or invalid, a default count will be used.
 
-- *?from=* - A unix time stamp **IN MILISECONDS**. Only user sessions that occurred after this time will be analyzed.
+- *?from=* - A Unix timestamp **IN MILISECONDS**. Only user sessions that occurred after this time will be analyzed.
 
-- *?to=* - A unix time stamp **IN MILISECONDS**. Only user sessions that occurred before this time will be analyzed.
+- *?to=* - A Unix timestamp **IN MILISECONDS**. Only user sessions that occurred before this time will be analyzed.
 
-- If either *?from* or *?to* are not valid timestamps or one is specified without the other, a default time range will be used of 2 months ago up to the today.
+- If either *?from* or *?to* are not valid timestamps or one is specified without the other, a default time range will be used of 2 months ago up to today.
