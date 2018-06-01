@@ -7,12 +7,6 @@ Beacon is capable of recording basic usage statistics such as total user session
 
 Beacon is also capable of resuming a users' session if they leave the website and return **(within a short period of time)**.
 
-### Closed Shop
-Currently Beacon is closed to the public and designed is only to work on a single website, [my portfolio site]().
-
-The authorization keys are hard coded into a config file and recorded user data is not differentiated by origin.
-
-
 ### Overview
 Beacon uses WebsSckets to record usage data. No personally identifiable data is recorded. Only already openly available data is recorded, such as the users' User Agent string, or their screen size and click data.
 
@@ -29,18 +23,7 @@ The REST API can return the fallowing data:
 ### REST API
 See [api.md](docs/api.md) for API documentation
 
-### Config Files
-See [config.md](docs/config.md) for instructions on setting up config files
-
-### Tools Used
-- MOCHA for testing
-- MongoDB database
-- Front end site is bundled with Webpack and styled with SCSS
-
 ### How to use Beacon on a website
-1. Add [beacon.js](app/beacon.js) to the website
-2. Call ``` beaconAnalytics.init()``` from somewhere in your JavaScript. If the DOM is not loaded, Beacon will wait until the dome is loaded and then initialize.
-3. See [usingBeacon.md](docs/usingBeacon.md) for more details and for how to implement click data.  
-
-### TODO
-- Add documentation for config files
+1. Add [beacon.js](app/beacon.js) to your website
+2. Call ``` beaconAnalytics.init(key, serverUrl)``` from somewhere in your JavaScript. If the DOM is not loaded, Beacon will wait until the DOM is loaded and then initialize. Make sure you pass in the correct key and the correct server URL. The key you pass in should have been defined as an env variable in the server environment.  
+3. See [usingBeacon.md](docs/usingBeacon.md) for more details and for how to implement click data.

@@ -1,11 +1,9 @@
-
-// v1.0.0
 if(window.beaconAnalytics == null)
 {
 	const beaconAnalytics = {
 
-		_key: 'afb51b19',
-		_serverUrl: 'ws://beaconanalytics.herokuapp.com/',
+		_key: null,
+		_serverUrl: null,
 		_socket: null,
 
 		_socketStates: {
@@ -119,13 +117,9 @@ if(window.beaconAnalytics == null)
 		},
 
 
-		init: function init(customKey, customUrl) {
-			if(customKey) {
-				beaconAnalytics._key = customKey;
-			}
-			if(customUrl) {
-				beaconAnalytics._serverUrl = customUrl;
-			}
+		init: function init(key, serverUrl) {
+			beaconAnalytics._key = key;
+			beaconAnalytics._serverUrl = serverUrl;
 
 			beaconAnalytics._initDOMEvents.bind(beaconAnalytics)();
 			beaconAnalytics._initSocket.bind(beaconAnalytics)();

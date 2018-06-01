@@ -1,9 +1,8 @@
-// set ENV to testing so mongoose connects to testing db
+require('dotenv-safe').config();
 process.env.NODE_ENV = 'testing';
-const testingKey = 'Z1HZ123';
-// a credentials object with this key should be defined in the config file credentials.config.json
+const key = process.env.KEY;
 
-const serverPort = 8080;
+const serverPort = process.env.PORT;
 
 const chai = require('chai');
 
@@ -12,7 +11,7 @@ const server = require('../../../server.js');
 const generateSampleData = require('../../../utils/generateSampleData.js');
 
 const testWS = require('./systemTest.ws.js');
-const testDataAPI = require('./systemTest.dataApi.js');
+const testDataAPI = require('./systemTest.dataAPI.js');
 const testStaticFiles = require('./systemTest.staticFiles.js');
 
 let hostName = `localhost:${serverPort}`;
@@ -48,5 +47,5 @@ after('Close server and database', function(done){
 });
 
 testStaticFiles(expect, chai, hostName);
-testDataAPI(expect, chai, hostName, testingKey);
-testWS(expect, hostName, testingKey);
+testDataAPI(expect, chai, hostName, key);
+testWS(expect, hostName, key);

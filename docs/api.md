@@ -4,8 +4,7 @@ The Beacon REST API is composed of 2 endpoints
 - *data/:key/stats*
 
 ### Authorization
-At the moment, all credentials **(authorization keys and their allowed domains)**, are hard coded in a config file. Beacon is not meant for public usage.
-
+Be sure to define the `key` env variable in the sever environment, and then pass that key with your API requests.
 
 ### Overview Endpoint
 *data/:key/overview* returns general statistics data about overall usage.  

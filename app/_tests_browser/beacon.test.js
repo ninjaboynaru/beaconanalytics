@@ -10,7 +10,7 @@ describe('Beacon.js', function(){
 	let btn;
 	let stubSend;
 
-	
+
 	before('Setup test btn', function(){
 		btn = document.createElement('button');
 		document.body.appendChild(btn);
@@ -19,8 +19,8 @@ describe('Beacon.js', function(){
 		btn.setAttribute('beacon-click-category', btnItemCategory);
 	});
 
-	
-	before('Fake the WebSocket object', function(){		
+
+	before('Fake the WebSocket object', function(){
 		stubSend = sandbox.stub(window.WebSocket.prototype, 'send');
 
 		stubSend.callsFake(function(data){
@@ -38,14 +38,15 @@ describe('Beacon.js', function(){
 		})
 	});
 
-	
+
 	after('Restore sandbox', function(){
 		sandbox.restore();
 	});
 
 
 	it('Sends correct analytics data', function(){
-		beaconAnalytics.init();
+		// NOTE: You must run the server and the key env variable temporarily set to *
+		beaconAnalytics.init('*', 'ws://localhost:8080');
 		expect(stubSend).callCount(3);
 
 		const sendCalls = stubSend.getCalls();
@@ -67,10 +68,10 @@ describe('Beacon.js', function(){
 
 		tempJson = JSON.parse(sendCalls[2].args[0]);
 		expect(tempJson, 'Third data send, did not have dataType property set to 2 (referrer dataType)').to.have.property('dataType', 2);
-		expect(tempJson, 'THird data send, did not have correct referrer property').to.have.deep.property('referrer', referrer);
+		expect(tempJson, 'Third data send, did not have correct referrer property').to.have.deep.property('referrer', referrer);
 	});
 
-	
+
 	it('Sends correct data when btn is pressed', function(){
 		btn.click();
 
@@ -89,11 +90,3 @@ describe('Beacon.js', function(){
 
 
 });
-
-
-
-
-
-
-
-

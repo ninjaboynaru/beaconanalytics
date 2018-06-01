@@ -1,10 +1,9 @@
+require('dotenv-safe').config();
 const path = require('path');
 
-
 function testDataAuthHandler(routesDirectory, expect, httpMock) {
-	const testingKey = 'Z1HZ123';
+	const validKey = process.env.KEY;
 	const invalidKey = 'This is definitely not a valid key';
-
 	const dataAuthHandler = require(path.join(routesDirectory, '/data/controllers/dataAuth.js'));
 
 	describe('Data authorization middleware tests', function(){
@@ -12,7 +11,6 @@ function testDataAuthHandler(routesDirectory, expect, httpMock) {
 			const mockRequest = httpMock.createRequest({
 				method:'GET',
 				url: `data/${invalidKey}`,
-				headers: {host: 'interwebz'},
 				params: {
 					key: invalidKey
 				}
@@ -31,10 +29,9 @@ function testDataAuthHandler(routesDirectory, expect, httpMock) {
 		it('Can call the next() function when a valid key is passed', function(done){
 			const mockRequest = httpMock.createRequest({
 				method:'GET',
-				url: `data/${testingKey}`,
-				headers: {host: '*'},
+				url: `data/${validKey}`,
 				params: {
-					key: testingKey
+					key: validKey
 				}
 			});
 			const mockResponse = httpMock.createResponse();

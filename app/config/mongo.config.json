@@ -1,6 +1,0 @@
-{
-	"productionUri": "mongodb://MainUser:MainPass@ds115671.mlab.com:15671/beacon-analytics",
-	"developmentUri": "mongodb://MainUser:MainPass@ds235807.mlab.com:35807/beacon-analytics-tests",
-	"testingUri": "mongodb://MainUser:MainPass@ds235807.mlab.com:35807/beacon-analytics-tests"
-
-}

@@ -105,11 +105,9 @@ function wsHandler(ws, httpRequest) {
 		{
 			if(data.dataType == 0 && data.key)
 			{
-				const hostName = httpRequest.headers.host;
 				const key = data.key;
-				const matchingCredentials = verifyCredentials(hostName, key);
 
-				if(matchingCredentials)
+				if(verifyCredentials(key) === true)
 				{
 					authorized = true;
 

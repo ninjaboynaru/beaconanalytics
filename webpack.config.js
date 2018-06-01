@@ -1,3 +1,4 @@
+require('dotenv-safe').config();
 const webpack = require('webpack');
 const Uglify = require('uglifyjs-webpack-plugin');
 const path = require('path');
@@ -6,29 +7,21 @@ let devtool;
 const plugins = [];
 const envType = process.env.NODE_ENV;
 
-/* ! These keys shoud be defined in credentials.config.json ! Should be used by frontend code
-* when for making calls to the API ! */
-const productionAPIKey = 'afb51b19';
-const developmentAPIKey = 'Z1HZ123';
-let apiKeyToUse;
-
 if(envType == 'production')
 {
-	console.log(`Webpack building for production. Using API Key: ${productionAPIKey}`);
-	apiKeyToUse = productionAPIKey;
+	console.log('Webpack building for production');
 	devtool = 'none';
 	plugins.push(new Uglify() );
 }
 else
 {
-	console.log(`Webpack building for development. Using API Key: ${developmentAPIKey}`);
+	console.log('Webpack building for development');
 	devtool = 'source-map';
-	apiKeyToUse = developmentAPIKey;
 }
 
 plugins.push( new webpack.DefinePlugin({
 	// API_KEY should be added to eslint config files' "globals" object to prevent "no-undef" errors
-	API_KEY: JSON.stringify(apiKeyToUse)
+	API_KEY: JSON.stringify(process.env.KEY)
 }));
 
 const webpackConfig = {
